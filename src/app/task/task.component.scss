@@ -1,0 +1,45 @@
+.task-details {
+    margin: 8px;
+    .task-identifier {
+        height: 6px;
+        width: 20%;
+        border-radius: 12px;
+    }
+    .task-identifier.todo {
+        background-color: gray;
+    }
+    .task-identifier.development {
+        background-color: yellow;
+    }
+    .task-identifier.qa {
+        background-color: purple;
+    }
+    .task-identifier.completed {
+        background-color: green;
+    }
+    .card {
+        padding: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        &:hover {
+            background-color: #e3e3e3;
+            cursor: pointer;
+        }
+    }
+    .task-info {
+        font-size: 12px;
+        font-weight: 500;
+        .assigned-date {
+            float: right;
+        }
+    }
+}
+.required {
+    color: red;
+  }
+  .error {
+    color: red;
+    font-size: 10px;
+  }
+  .form-check-inline > label {
+    cursor: pointer;
+  }

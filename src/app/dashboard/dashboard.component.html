@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-3 brd-right">
+    <p class="section-header">To-Do</p>
+    @for (item of tasks | taskFilter: 'TODO'; track $index) {
+    <app-task [item]="item" (updateTasks)="updateTask($event)"></app-task>
+    }
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-3 brd-right">
+    <p class="section-header">In Development</p>
+    @for (item of tasks | taskFilter: 'DEVELOPMENT'; track $index) {
+    <app-task [item]="item" (updateTasks)="updateTask($event)"></app-task>
+    }
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-3 brd-right">
+    <p class="section-header">In QA</p>
+    @for (item of tasks | taskFilter: 'QA'; track $index) {
+    <app-task [item]="item" (updateTasks)="updateTask($event)"></app-task>
+    }
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-3 brd-right">
+    <p class="section-header">Completed</p>
+    @for (item of tasks | taskFilter: 'COMPLETED'; track $index) {
+    <app-task [item]="item" (updateTasks)="updateTask($event)"></app-task>
+    }
+  </div>
+</div>
+<div class="add-task" (click)="openAddTaskModel(content)">
+  <i class="fa fa-plus" aria-hidden="true"></i>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">Add New Task</h4>
+  </div>
+  <div class="modal-body">
+    <form #newTaskForm="ngForm">
+        <div class="mb-3">
+            <label for="title" class="form-label"><span class="required">*</span>Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              placeholder="Enter Task Title"
+              [(ngModel)]="newTask.Title"
+              required
+              #title="ngModel"
+            />
+            <span [hidden]="title.valid || title.pristine"
+            class="error">Name is required</span>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label"
+              ><span class="required">*</span>Description</label
+            >
+            <textarea
+              class="form-control"
+              id="description"
+              rows="3"
+              name="description"
+              [(ngModel)]="newTask.Description"
+              required
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="dueDate" class="form-label"><span class="required">*</span>Due Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="dueDate"
+              name="dueDate"
+              placeholder=""
+              [(ngModel)]="newTask.DueDate"
+              required
+            />
+          </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('Cancel click')"
+    >
+      Cancel
+    </button>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="newTaskForm.form.status === 'INVALID'"
+      (click)="addTask(newTaskForm)"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>

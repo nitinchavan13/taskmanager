@@ -1,0 +1,147 @@
+<div class="task-details">
+  <div class="card" (click)="openTaskModel(content)">
+    <div
+      class="task-identifier todo"
+      [ngClass]="{
+        todo: item.Status === 'TODO',
+        development: item.Status === 'DEVELOPMENT',
+        qa: item.Status === 'QA',
+        completed: item.Status === 'COMPLETED'
+      }"
+    ></div>
+    <p>{{ item.Title | limitWord : 80 }}</p>
+    <div class="task-info">
+      <span class="user-info"
+        ><i class="fa fa-user" aria-hidden="true"></i>
+        {{ item.DueDate | date : "dd/MM/yyyy" }}</span
+      >
+      <!-- <span class="assigned-date"
+        ><i class="fa fa-clock-o" aria-hidden="true"></i>
+        {{ item.DueDate | date : "dd/MM/yyyy" }}</span
+      > -->
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">Task Details</h4>
+  </div>
+  <div class="modal-body">
+    <form #newTaskForm="ngForm">
+        <div class="mb-3">
+            <label for="title" class="form-label"><span class="required">*</span>Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              placeholder="Enter Task Title"
+              [(ngModel)]="taskInfo.Title"
+              required
+              #title="ngModel"
+            />
+            <span [hidden]="title.valid || title.pristine"
+            class="error">Name is required</span>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label"
+              ><span class="required">*</span>Description</label
+            >
+            <textarea
+              class="form-control"
+              id="description"
+              rows="3"
+              name="description"
+              [(ngModel)]="taskInfo.Description"
+              required
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="dueDate" class="form-label"><span class="required">*</span>Due Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="dueDate"
+              name="dueDate"
+              placeholder=""
+              [ngModel]="taskInfo.DueDate | date:'yyyy-MM-dd'"
+              (ngModelChange)="taskInfo.DueDate = $event"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label me-4"
+              ><b>Change Status:</b></label
+            >
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio1"
+                value="TODO"
+                [(ngModel)]="taskInfo.Status"
+              />
+              <label class="form-check-label" for="inlineRadio1">To-Do</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio2"
+                value="DEVELOPMENT"
+                [(ngModel)]="taskInfo.Status"
+              />
+              <label class="form-check-label" for="inlineRadio2">Development</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio3"
+                value="QA"
+                [(ngModel)]="taskInfo.Status"
+              />
+              <label class="form-check-label" for="inlineRadio3">QA</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOptions"
+                id="inlineRadio4"
+                value="COMPLETED"
+                [(ngModel)]="taskInfo.Status"
+              />
+              <label class="form-check-label" for="inlineRadio4">Completed</label>
+            </div>
+          </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="modal.close('Cancel click')"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="deleteTask()"
+    >
+      Delete
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="updateTask()"
+    >
+      Update
+    </button>
+  </div>
+</ng-template>

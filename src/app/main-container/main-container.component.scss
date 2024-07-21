@@ -1,0 +1,23 @@
+.header {
+    background-color: blue;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    p {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 16px 8px;
+    }
+    p:nth-child(1) {
+        justify-content: left;
+    }
+    p:nth-last-child(1) {
+        justify-content: flex-end;
+        cursor: pointer;
+    }
+    .user-name {
+        color: yellow;
+    }
+}
